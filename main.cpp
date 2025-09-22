@@ -56,7 +56,7 @@ int main () {
 	std::cout << "array sum is " << sum << std::endl;
 	std::cout << "array average is " << num <<std::endl;
 */
-	int N = 0;
+/*	int N = 0;
         int large = 0;
         int small = 0;
         std::cout << "haw many numbers you want to input:  ";
@@ -70,7 +70,74 @@ int main () {
         largest_smallest( array , large , small );          
 	std::cout << "small " << small << std::endl;
         std::cout << "large " << large << std::endl;
+*/
+
+/*	int num1 = 4;
+	int num2 = 6;
+	double  num3 =7;
+	double  num4 =8.8;
+	std::cout <<  add(num1 , num2) << std::endl;
+	std::cout <<  add(num3 , num4) << std::endl;	
+*/
+
+/*	int a =0;
+	int b =0;
+	std::cout << "enter two numbers ";
+	std::cin >> a ;
+	std::cin >> b ; 
+	int sum = 0;
+	sum_two_nums( a , b , sum );
+	std::cout << sum << std::endl;
+*/
+/*	const int size =5;
+	int arr[size];
+	for(int i{0} ; i < size ; ++i) {
+		std::cin >> arr[i]; 
+	}
 	
+	change_num(arr[0]);
+	for(int i{0}; i < size ; ++i){
+		std::cout << arr[i];
+	}
+*/
+
+/*	int x = 7;
+	int y = x;
+	int &r = x;
+	std::cout << x << y << r << std::endl;
+	change_numbers ( y , r);
+	std::cout << x << y << r << std::endl;
+*/
+
+	int x = 1;
+	int &a =x;
+	int &b =x;
+	change_referenc(a);
+	std::cout << b << std::endl;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
