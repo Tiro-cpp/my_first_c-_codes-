@@ -1,5 +1,5 @@
 #include <iostream>
 
-void change_num(int &num ) {
-	num = 8;
+void change_num(int &num) {
+	num =8;
 }
