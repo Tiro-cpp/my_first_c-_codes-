@@ -1,24 +1,28 @@
 #include <iostream>
-
-void Rational::helper_reduce(int& num , int& denum) {
+#include <numeric>
+#include "Rational.hpp"
+void Rational::helper_reduce() {
 	int result = std::gcd(num, denum);
-	if(result != 0) {
+
 	num = num / result;
 	denum = denum / result;
+	if(denum < 0 ) {
+	num *= -1;
+	denum = -denum;
 	}
 }
+/////////
 
 
 
-void Rational::Rational(int _num , int _denum) {
+Rational::Rational(int _num , int _denum): num{_num}, denum{_denum} {
 	if(denum == 0) {
 	std::cout << "__ERROR__ ";
-	std::exit;	
+	std::exit(EXIT_FAILURE);	
 	}
-	helper_reduce( _num, _denum);
-	if(_denum < 0 ) _num *= -1;
+	helper_reduce();
 }
-
+//constructors
 Rational& Rational::operator= (const Rational& other ) {
 	if(this != &other) {
 	num = other.num;
@@ -37,24 +41,28 @@ Rational& Rational::operator= (Rational&& other) {
 	other.denum=1;
 
 	}
-
-
 return *this;
-} 
-Rational& Rational:: operator++ () {
+}
+
+/////
+
+
+//unary operators
+ 
+Rational& Rational::operator++ () {
 	num += denum;
 return *this;
 }
-Rational& Rational:: operator++(int) {
+Rational Rational::operator++(int) {
 	Rational temp = *this;
 	num += denum;	
 return temp;
 }
-Rational& Rational:: operator-- () {
+Rational& Rational::operator-- () {
 	num -= denum;
 return *this;
 }
-Rational& Rational:: operator-- (int) {
+Rational Rational::operator-- (int) {
 	Rational temp = *this;
 	num -= denum;
 return temp;
@@ -62,12 +70,18 @@ return temp;
 bool Rational::operator!(){
 	return (num==0);
 }
+/////
+
+
+
+//binary operators
+
 Rational& Rational:: operator+= (const Rational& other){
 	int res = std::lcm(denum, other.denum);
 	
 	num = (res/denum*num) + (res/other.denum*other.num);
 	denum = res;
-	helper_reduce(num ,denum);
+	helper_reduce();
 return *this;						
 }
 
@@ -76,22 +90,124 @@ Rational& Rational:: operator-=(const Rational& other) {
   
         num = (res/denum*num) - (res/other.denum*other.num);
         denum = res;
-        helper_reduce(num ,denum);
+        helper_reduce();
 return *this;
 }
 Rational& Rational:: operator*=(const Rational& other) {
 	num *= other.num;
 	denum *= other.denum;
-	helper_reduce(num, denum); 
+	helper_reduce(); 
 return *this;
 }
  Rational& Rational:: operator/=(const Rational& other) {
         num *= other.denum;
         denum *= other.num;
-        helper_reduce(num, denum);
+        helper_reduce();
 return *this;
 }
   
+
+Rational operator+ (const Rational& other1 , const Rational other2) {
+	Rational pop(other1);
+	pop += other2;
+	return pop;
+}
+
+Rational operator- (const Rational& other1 , const Rational other2) {
+	Rational pop(other1);
+	pop -= other2;
+	return pop;
+}
+
+
+
+Rational operator* (const Rational& other1, const Rational other2) {
+	Rational pop(other1);
+	pop *= other2;
+	return pop;	
+}
+Rational operator/ (const Rational& other1 , const Rational other2) {
+	Rational pop(other1);
+	pop /= other2;	
+	return pop;
+}
+////////
+
+///Comparison operators
+
+bool operator==(const Rational& other1, const Rational& other2) {
+	return other1.num==other2.num && other1.denum==other2.denum;
+}
+
+bool operator!=(const Rational& other1, const Rational& other2) {
+	return other1.num != other2.num && other1.denum != other2.denum;
+}
+bool operator>=(const Rational& other1, const Rational& other2) {
+         return other1.num >= other2.num && other1.denum >= other2.denum;
+ }
+ bool operator<=(const Rational& other1, const Rational& other2) {
+         return other1.num <= other2.num && other1.denum <= other2.denum;
+}
+bool operator<(const Rational& other1, const Rational& other2) {
+          return other1.num < other2.num && other1.denum < other2.denum;
+ }
+bool operator>(const Rational& other1, const Rational& other2) {
+          return other1.num > other2.num && other1.denum > other2.denum;
+}  
+
+///////
+
+
+///Stream operators
+
+std::ostream& operator<< (std::ostream& ost, const Rational& other) {
+	ost << other.num << "/" << other.denum;
+	return ost;
+}
+std::istream& operator>> (std::istream& ist, Rational& other) {	
+	ist >> other.num >> other.denum;	
+	return ist;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
