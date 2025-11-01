@@ -1,22 +1,6 @@
 #include <iostream>
 #include "my_vector_cpp.hpp"
 
-void Vector::init (size_t capacity) {
-	_capacity = capacity;
-	data = new int[capacity]; 	
-}
-
-void Vector::init (size_t capacity , int value) {
-	_capacity = capacity;	
-	data = new int[capacity];
-	for(int i{0}; i < capacity; ++i) data[i] = value;	
-}
-
-void Vector::destroy () {
-	delete[] data;
-	data = nullptr;
-	_capacity = _size = 0;
-}
 
 void Vector::clear () {_size = 0;}
 

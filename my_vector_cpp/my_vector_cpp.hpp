@@ -10,24 +10,57 @@ private:
 
 
 public:
+	Vector(int* Data = nullptr, int size = 0, int capacity = 0 ): data(Data),_size(size), _capacity(capacity) {}
 	
-	Vector() {
-	data = nullptr;
-	_size =0;
-	_capacity =0;
+	Vector(const Vector& oth): _size(oth._size), _capacity(oth._capacity),data(nullptr)  {
+		data = new int[oth._capacity];
+		if(!oth.data) return;
+		for(size_t i{0}; i < oth._size; ++i ) {
+			data[i] = oth.data[i];
+		}
+}
+	Vector& operator=(const Vector& oth) {
+		if(this == &oth) return *this;
+		_size = oth._size;
+		_capacity = oth._capacity;
+		delete []data;
+		data = new int[oth._capacity];
+		for(size_t i{0}; i < oth.size() ; ++i) {
+			data[i] = oth.data[i];
+		}
+	}
+	Vector( Vector&& oth):_size(oth._size), _capacity(oth._capacity), data(oth.data) {
+		if(!oth.data)return;
+		oth.data = nullptr;
+		oth._size = oth._capacity =0;
+	} 
+
+
+	Vector& operator=(Vector&& oth ) {
+		if (this == &oth )return *this;
+
+		_size = oth._size;
+		_capacity = oth._capacity;
+		delete []data;
+		data = oth.data;
+		oth.data = nullptr;
 	}
 
+
+
+
 	~Vector() {
-	delete[] data;
+		delete[] data;
+		_capacity = _size = 0;
 	}	
 
 public:
 	
-	void init(size_t);
+	
 
-	void init(size_t, int);//init with default vals
+	
 
-	void destroy();
+	
 	void clear();
 	int* get_data() const { return data; }
 	
