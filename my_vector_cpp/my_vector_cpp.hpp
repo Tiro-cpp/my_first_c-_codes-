@@ -12,27 +12,32 @@ private:
 public:
 	Vector(int* Data = nullptr, int size = 0, int capacity = 0 ): data(Data),_size(size), _capacity(capacity) {}
 	
-	Vector(const Vector& oth): _size(oth._size), _capacity(oth._capacity),data(nullptr)  {
+	Vector(const Vector& oth) : _size(oth._size), _capacity(oth._capacity), data(nullptr) {
 		data = new int[oth._capacity];
-		if(!oth.data) return;
-		for(size_t i{0}; i < oth._size; ++i ) {
+		if (!oth.data) return;
+	
+		for (size_t i{0}; i < oth._size; ++i) {
 			data[i] = oth.data[i];
 		}
-}
+	}
+
 	Vector& operator=(const Vector& oth) {
 		if(this == &oth) return *this;
+
 		_size = oth._size;
 		_capacity = oth._capacity;
-		delete []data;
+
+		delete[] data;
 		data = new int[oth._capacity];
+
 		for(size_t i{0}; i < oth.size() ; ++i) {
 			data[i] = oth.data[i];
 		}
 	}
-	Vector( Vector&& oth):_size(oth._size), _capacity(oth._capacity), data(oth.data) {
-		if(!oth.data)return;
+
+	Vector(Vector&& oth) : _size{oth._size}, _capacity{oth._capacity}, data{oth.data} {
 		oth.data = nullptr;
-		oth._size = oth._capacity =0;
+		oth._size = oth._capacity = 0;
 	} 
 
 
@@ -70,7 +75,7 @@ public:
 	void push_back(int);
 	void pop_back();
 
-	void insert( size_t, int); // insert at index (0..size)
+	void insert(size_t, int); // insert at index (0..size)
 	void erase(size_t); // erase element at index (0..size-1)
 
 	

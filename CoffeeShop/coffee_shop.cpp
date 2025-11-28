@@ -6,7 +6,6 @@
 
 CoffeeShop::~CoffeeShop() {
     for (auto d : menu) delete d;
-    for (auto b : baristas) delete b;
 }
 void Drink::display() const {
 
@@ -30,6 +29,7 @@ void CoffeeShop::addDrink(Drink* drink) {
 
 		menu.push_back(drink);
 }
+
 void CoffeeShop::removedrink(const std::string& drinkname) {
 	for(size_t i =0; i < menu.size() ; ++i) {
 		if(menu[i]->getName() == drinkname ) {
@@ -39,6 +39,7 @@ void CoffeeShop::removedrink(const std::string& drinkname) {
 		}
 	}
  }
+ 
 void CoffeeShop::showMenu() const {
 	
 	for( size_t i =0; i < menu.size() ; ++i) {
@@ -47,14 +48,13 @@ void CoffeeShop::showMenu() const {
 	}
 }
 void CoffeeShop::hireBarista(Barista* barista) {
-	if(barista == nullptr)return;
+	if(barista == nullptr) return;
 	baristas.push_back(barista);
 }
 void CoffeeShop::fireBarista(Barista* barista){
 	for(size_t i =0; i < baristas.size(); ++i) {
 		if(baristas[i] == barista ){
-			delete baristas[i];
-			baristas.erase(baristas.begin() + i );
+			baristas.erase(baristas.begin() + i);
 			return;
 		}
 	}

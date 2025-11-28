@@ -8,7 +8,26 @@ enum class Kind {
     Eagle, Parrot,
     Snake, Crocodile
 };
-
+class Ifly {
+    public:
+        virtual void fly() = 0;     
+};
+class Iswim {
+    public:
+    virtual void I_swim() =0;
+};
+class Iwalk {
+    public:
+    virtual void I_Walk() =0;
+};
+class Ivoice{
+    public:
+    virtual void MakeSound() =0;
+};
+class IFeedable {
+    public:
+    virtual void I_feedable() =0;
+};
 class Animal {
     
 protected:
@@ -25,14 +44,14 @@ public:
     Animal():name("unname"), id{Id++}, health{100}, hunger{}, _kind{Kind::Animal} {}
     
     Animal( const std::string& name, int health, int hunger, Kind k = Kind::Animal);
-    
+    virtual ~Animal() = default;
         
 public:    
 
-    void PrintInfo()const; 
+    virtual void PrintInfo() = 0; 
     void Feed();
-    
-    
+ 
+
 
 };
 
@@ -44,18 +63,16 @@ class Mammal: public Animal {
     public:
         Mammal():Animal(), warmBlooded(true) {}
         Mammal(const  std::string& n, int he , int hu, Kind k = Kind::Mammal);
-        void MakeSound()const;
 };
 
 class Bird: public Animal {
     protected:
         double wingspan;         //teveri bacvatsq
-        
 
     public:
         Bird():Animal(), wingspan(0.5) {}
-        Bird(const std::string& n,int he, int hu, Kind k = Kind::Bird);
-        void fly()const;
+        Bird(const std::string& n, int he, int hu, Kind k = Kind::Bird);
+        
 };
 
 class Reptile: public Animal {
@@ -65,14 +82,14 @@ class Reptile: public Animal {
 
     public:
         Reptile():Animal(), coldBlood(true) {}
-        Reptile(const std::string& n,int he, int hu, Kind k = Kind::Reptile);
+        Reptile(const std::string& n, int he, int hu, Kind k = Kind::Reptile);
         void Sumbathe()const;
          
 };
 
 
 
-class Lion: public Mammal {
+class Lion: public Mammal, public Ivoice, public Iwalk, public IFeedable{
     private:
         int roarRower;
 
@@ -81,63 +98,74 @@ class Lion: public Mammal {
 
         Lion(const std::string& n, int he , int hu );
     public:
-        void MakeSound()const; 
-        void PrintInfo()const; 
+        void PrintInfo();
+    public:    
+        virtual void MakeSound()override;  
+        virtual void I_Walk() override;////////
+        virtual void I_feedable() override;/////
 };
 
-class Tiger:public Mammal{
+class Tiger:public Mammal, public Ivoice, public Iwalk, public IFeedable{
     private:
         double jumpHeight;        
    
     public:
         Tiger():Mammal(), jumpHeight(3.2) {}
         Tiger(const std::string& n, int he , int hu);    
-        void MakeSound()const;
+    public:    
         void Jump()const;
-        void PrintInfo()const; 
-
+        void PrintInfo(); 
+    public:    
+        virtual void MakeSound() override;
+        virtual void I_Walk() override;////////
+        virtual void I_feedable() override;//////
 };
 
-class Elephant:public Mammal {
+class Elephant:public Mammal, public Ivoice,public Iwalk, public IFeedable {
     private:
     double trunkLength;
 
     public:
         Elephant():Mammal(), trunkLength(3.5) {}
         Elephant(const std::string& n, int he, int hu);
+        void UseTrunk();
+        void PrintInfo() override;
 
-        void MakeSound()const;
-        void UseTrunk()const;
-        void PrintInfo()const; 
+     void MakeSound() override;
+        virtual void I_Walk() override;//////
+        virtual void I_feedable() override;
 
 };
-class Eagle:public Bird {
+class Eagle : public Bird, public Ivoice, public Iwalk, public IFeedable, public Ifly {
     private:
     double visionRange; // meters
     public:
         Eagle():Bird(), visionRange(1.3){}
         Eagle(const std::string& n, int he , int hu);
-
+        virtual void MakeSound()override; 
+        virtual void fly() override; ////
+        virtual void I_Walk() override;//// 
+        virtual void I_feedable() override;/////
+        void PrintInfo() override;
         void Soar()const;
-        void fly()const; 
-        void PrintInfo()const; 
-
 };
 
-class Parrot:public Bird {
+class Parrot:public Bird, public Ivoice, public Iwalk, public IFeedable, public Ifly {
     private:
         std::vector<std::string> vocabulary;     // words it can "say"
     public:
         Parrot():Bird() {}
         Parrot(const std::string& n,int he, int hu, const std::vector<std::string> say);
+        void PrintInfo() override;
+     void MakeSound() override;   
         
-        void fly()const;
-        void Speak()const;   
-        void PrintInfo()const; 
+        virtual void I_Walk() override;////
+        virtual void I_feedable() override;////
+        virtual void fly() override;/// 
 
 
 };
-class Snake:public Reptile {
+class Snake:public Reptile, public Ivoice,public Iwalk, public IFeedable  {
     private:
         bool poisonous;
     
@@ -145,18 +173,24 @@ class Snake:public Reptile {
         Snake():Reptile(), poisonous(true) {}
         Snake(const std::string& n, int he , int hu);
 
-        void Hiss()const;
-        void PrintInfo()const; 
+        
+        void PrintInfo() override; 
+     void MakeSound() override;////
+        virtual void I_feedable() override;////
+        virtual void I_Walk() override;////
 };
-class Crocodile:public Reptile {
+class Crocodile:public Reptile, public Ivoice, public Iswim, public IFeedable {
     private:
         int biteForce;      // 1..10
     public:
         Crocodile():Reptile(), biteForce(5) {}
         Crocodile(const std::string& n, int he , int hu);
 
-        void Snap()const;
-        void PrintInfo()const; 
+        void Snap();
+        void PrintInfo() override;
+     void MakeSound() override; 
+        virtual void I_swim() override;///
+        virtual void I_feedable() override;////
 };
 
 

@@ -13,27 +13,24 @@ int main() {
 
     std::vector<Animal*> animals = { simba, tony, dumbo, aquila, koko, sly, croc };
 
-    std::cout << "=== BEFORE FEEDING ===" << std::endl;
+    
+
     for (Animal* a : animals) {
         a->PrintInfo();
-    }
 
-    // kerakrum enq 
-    std::cout << "\n=== FEEDING ANIMALS ===" << std::endl;
-    for (Animal* a : animals) {
-        a->Feed();
-    }
+        if (IFeedable* item = dynamic_cast<IFeedable*>(a)) {
+            item->I_feedable();
+        }
 
-    
-    std::cout << "\n=== AFTER FEEDING ===" << std::endl;
-    for (Animal* a : animals) {
+        if (Ifly* item = dynamic_cast<Ifly*>(a)) {
+            item->fly();
+        }
+
         a->PrintInfo();
+        std::cout << std::endl;
     }
 
-    
-    for (Animal* a : animals) {
-        delete a;
-    }
+    for (Animal* a : animals) delete a;
 
     return 0;
 }

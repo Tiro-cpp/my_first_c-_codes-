@@ -2,23 +2,23 @@
 #include "my_vector_cpp.hpp"
 
 
-void Vector::clear () {_size = 0;}
+void Vector::clear() { _size = 0; }
 
-size_t Vector::size () const {return _size;}
+size_t Vector::size() const { return _size; }
 
-size_t Vector::capacity () const {return _capacity;}
+size_t Vector::capacity() const { return _capacity; }
 
 void Vector::realloc_helper() {
 
 	int* arr = new int[_capacity * 2];
 	_capacity = 2 * _capacity;
-	for(int i{0}; i < _size ; ++i) arr[i] = data[i];
+
+	for(int i{0}; i < _size; ++i) arr[i] = data[i];
 	delete[] data;
 	data = arr;
 }
 
 void Vector::push_back (int value) {
-
 	if(_size == _capacity) realloc_helper();
 	data[_size] = value;
 	++_size;

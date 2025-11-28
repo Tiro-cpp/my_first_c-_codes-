@@ -44,34 +44,6 @@ Crocodile::Crocodile(const std::string& n, int he , int hu):Reptile(n, he, hu, K
 ////////////////////////////////////////////////////////////////////////////////
 
 
-void Animal::PrintInfo() const {
-    switch(_kind) {
-    case Kind::Lion: 
-        static_cast<const Lion *>(this)->PrintInfo() ;    
-        break;
-    case Kind::Tiger: 
-        static_cast<const Tiger *>(this)->PrintInfo();
-        break;
-    case Kind::Elephant: 
-        static_cast<const Elephant *>(this)->PrintInfo();
-        break;
-    case Kind::Eagle: 
-        static_cast<const Eagle *>(this)->PrintInfo();
-        break;
-    case Kind::Parrot: 
-         (static_cast<const Parrot *>(this))->PrintInfo();
-        break;
-    case Kind::Snake: 
-         (static_cast<const Snake * >(this))->PrintInfo();
-        break;
-    case Kind::Crocodile: 
-        (static_cast<const Crocodile* >(this))->PrintInfo();
-        break;
-    default:
-        std::cout << "novu";
-
-    } 
-}
 void Animal::Feed() {
     int food = 100 - health;
     if(food > 0){
@@ -85,91 +57,154 @@ void Animal::Feed() {
         }
     }    
 }
-void Mammal::MakeSound()const {
-    std::cout << "  RrrrrrrRrrrrrrRRrrrrrr" << std::endl;
-}    
-void Bird::fly()const {
-    std::cout << name << "  can fly" << std::endl;
-}
 
-void Reptile::Sumbathe()const {
-    std::cout << "  reptile warms itself in sun" << std::endl;
-}
-void Lion::MakeSound()const {
+
+void Lion::MakeSound() {
     std::cout << name << "  braaaaauuuuuu" << std::endl;
 }
+void Lion::I_Walk() {
+    std::cout << "Lion can walk-"<<std::endl;
 
-//
-void Lion::PrintInfo()const{
-    std::cout << name << " health is" << health <<"  hunger is "<< hunger<<std::endl;
-    MakeSound();
 }
-void Tiger::MakeSound()const { 
+void Lion::I_feedable() {
+    std::cout << "A lion can stay hungry for a long time.*"<<std::endl;
+
+}
+
+
+void Lion::PrintInfo(){
+    std::cout << name << " health is" << health <<"  hunger is "<< hunger<<std::endl;
+}
+/////////////////////////////////////
+//Tiger
+void Tiger::MakeSound() { 
     std::cout << name << "  veauuuuuu" << std::endl;
 }
-//
-void Tiger::PrintInfo()const{
+void Tiger::I_Walk(){
+    std::cout<< "Tiger is walk "<<std::endl;
+}
+void Tiger::I_feedable() {
+    std::cout << "A Tiger can stay hungry for a long time.*"<<std::endl;
+}
+
+void Tiger::PrintInfo(){
      std::cout << name << "  health is" << health <<"  hunger is "<< hunger<<std::endl;
      Jump();
+     MakeSound();
+     I_Walk();
+     I_feedable();
 }
 
 void Tiger::Jump() const {
     std::cout << name << "  jumping the" << jumpHeight << "{km/h}" <<std::endl;
 }
-void Elephant::UseTrunk()const{
+/////Elephant
+
+void Elephant::UseTrunk() {
     std::cout << name << "  the trunk lenght is" << trunkLength << std::endl;
 }
-void Elephant::MakeSound()const { 
+void Elephant::MakeSound() { 
     std::cout << name << " Ppppppixxx" << std::endl;
 }
+void Elephant::I_Walk() {
+    std::cout<< "Elephant is walk "<<std::endl;
+}
+void Elephant::I_feedable() {
+    std::cout << "A Elephant can stay hungry for a long time.*"<<std::endl;
+}
 //
-void Elephant::PrintInfo()const{
+void Elephant::PrintInfo() {
      std::cout << name << " health is" << health <<"  hunger is "<< hunger<<std::endl;
      MakeSound();
+     I_feedable();
+     I_Walk();
+     UseTrunk();
 }
-
+//////////Eagle
 void Eagle::Soar()const {
     std::cout<< " flying vision nage is " << visionRange << std::endl;
 }
-void Eagle::fly()const {
+void Eagle::fly() {
     std::cout << name << "   flying in 1 km/h " << std::endl;
 }
-//
-void Eagle::PrintInfo()const{
+void Eagle::I_Walk() {
+    std::cout<< "Eaglel is walk "<<std::endl;
+}
+void Eagle::I_feedable() {
+    std::cout << "A Eagle can stay hungry for a long time.*"<<std::endl;
+}
+void Eagle::MakeSound(){
+    std::cout<< "jhjhjhjhjhjh"<<std::endl;
+}
+
+void Eagle::PrintInfo(){
      std::cout << name << "  health is" << health <<"   hunger is "<< hunger<<std::endl;
      fly();
 
 } 
-
-void Parrot::Speak()const {
+////Parot
+void Parrot::I_Walk() {
+    std::cout<< "Parrot is walk "<<std::endl;
+}
+void Parrot::I_feedable() {
+    std::cout << "A Parott can stay hungry for a long time.*"<<std::endl;
+}
+void Parrot::fly() {
+    std::cout << "A" << name << "can fly a certain distance depending on its speed and the time it flies." << std::endl;
+}
+void Parrot::MakeSound() {
     for(size_t i{0} ; i < vocabulary.size() ; ++i) {
         std::cout << vocabulary[i];
     }
 }
-void Parrot::fly()const {
-    std::cout << "A" << name << "can fly a certain distance depending on its speed and the time it flies." << std::endl;
-}
-//
-void Parrot::PrintInfo()const {
+void Parrot::PrintInfo() {
      std::cout << name << "  health is" << health <<"  hunger is "<< hunger<<std::endl;
      fly();
+     MakeSound();
+     fly();
+     I_Walk();
+     I_feedable();
 }
-void Snake::Hiss() const {
+////Snake
+
+
+void Snake::MakeSound()  {
         std::cout << "Sssss! " << std::endl;
 }
-void Snake::PrintInfo()const {
+void Snake::I_Walk(){
+    std::cout<<"snake is walk"<<std::endl;
+}
+void Snake::I_feedable() {
+    std::cout << "A Snake can stay hungry for a long time.*"<<std::endl;
+}
+void Snake::PrintInfo() {
      std::cout << name << "  health is" << health <<"  hunger is "<< hunger<<std::endl;
-     Hiss();
+     I_feedable();
+     MakeSound();
+
 }
 //
-void Crocodile::PrintInfo()const{
-     std::cout << name << "health is" << health <<"hunger is "<< hunger<<std::endl;
-     Snap();
-} 
+void Crocodile::MakeSound(){
+    std::cout<<"mkau"<<std::endl;
+}
+void Crocodile::I_swim() {
+    std::cout << "crocodile is swimming "<< std::endl;
+}
+void Crocodile::I_feedable() {
+    std::cout << "A crocodile can stay hungry for a long time.*"<<std::endl;
 
-void Crocodile::Snap()const {
+}
+void Crocodile::Snap() {
     std::cout << name << "snaps it's jews with force " << biteForce << std::endl;
 }
+void Crocodile::PrintInfo(){
+     std::cout << name << "health is" << health <<"hunger is "<< hunger<<std::endl;
+     Snap();
+     I_feedable();
+     I_swim();
+} 
+
+
 
 
 
